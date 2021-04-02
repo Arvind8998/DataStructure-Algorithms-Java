@@ -14,7 +14,6 @@ public class Swastik {
                         System.out.print("\t");
                     }
                 }
-
                 else if (i <= n / 2) {
                     if (j == n || j == n / 2 + 1) {
                         System.out.print("*\t");
