@@ -1,8 +1,9 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
-    public static Scanner = new Scanner(System.in);
+public class EndPointArray {
+    
+    public static Scanner scn = new Scanner(System.in);
     
     
     public static void input(int[][] arr){
@@ -16,9 +17,12 @@ public class Main {
     }
 }
 
-    public static ExitMatrix(int[][] arr){
+    public static void ExitMatrix(int[][] arr){
         int dir =0, i=0, j=0;
+        int n = arr.length;
+        int m = arr[0].length;
         while(true){
+            dir = (dir + arr[i][j])%4;
             if(dir == 0){ //North
                 j++;
                 if(j == m){
@@ -55,8 +59,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
         int n = scn.nextInt();
         int m = scn.nextInt();
-        input(arr[n][m]);
-        ExitMatrix(arr[n][m])
+        int[][] arr = new int[n][m];
+        input(arr);
+        ExitMatrix(arr);
     }
 
 }
