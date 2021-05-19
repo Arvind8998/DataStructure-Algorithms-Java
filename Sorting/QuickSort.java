@@ -11,7 +11,7 @@ public class QuickSort {
     public static int partitionArray(int[] arr, int si, int ei, int pIdx){
         int p = si-1, itr = si;
 
-        swap(arr, si, pIdx);
+        swap(arr, pIdx, ei);
 
         while(itr <= ei){
             if(arr[itr] <= arr[ei]){
