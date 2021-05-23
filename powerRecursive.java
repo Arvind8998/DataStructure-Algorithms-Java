@@ -2,16 +2,18 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    
     public static Scanner scn = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
+        // write your code here
+        int x = scn.nextInt();
         int n = scn.nextInt();
-        System.out.println(factorial(n));
+        System.out.println(power(x,n));
     }
 
-    public static int factorial(int n){
-         return n == 0 ? 1 : n*factorial(n-1);
+    public static int power(int x, int n){
+        if(n==0) return 1;
+        return x*power(x, n-1);
     }
 
 }
