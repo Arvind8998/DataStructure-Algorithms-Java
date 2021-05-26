@@ -151,19 +151,48 @@ public  class LinkedList{
 
     }
 
-    function removeDuplicates(){
-        Node dummy = new Node(-1);
+    public Node deleteDuplicates(Node head) {
+        if(head == null || head.next ==null) return head;
+        Node dummy = new Node(-101);
+        
         Node dp = dummy;
-        Node curr = this.head;
-        dp.next = curr;
+        Node curr = head;
+        int size = 0;
+        
 
         while(curr != null){
-            if(curr.data != dp.data){
-                dp.next = curr;
+           while(curr != null && dp.data == curr.data){
+               Node forw = curr.next;
+               curr.next = null;
+               curr = forw;
+           }
+            dp.next = curr;
+            if(curr != null){
+                curr = curr.next;
                 dp = dp.next;
+                size++;
             }
-            curr = curr.next;
+    }
+        return dummy.next;
+}
+
+    public Node reverseList(Node head) {
+        if(head == null || head.next == null) {
+            return head;
         }
-        dp.next = null;
+        
+        Node prev = null;
+        Node curr = head;
+        
+        while(curr !=null){
+            Node forw = curr.next;
+            curr.next = prev;
+            
+            prev = curr;
+            curr = forw;
+            
+        }
+        return prev;
+        
     }
 }
