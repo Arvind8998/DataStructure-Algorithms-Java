@@ -66,6 +66,7 @@ public class queue {
         this.size--;
         return data;
     }
+    
 
     public int peek() {
         return this.arr[this.front];
