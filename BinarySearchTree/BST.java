@@ -158,4 +158,20 @@ public class BST {
         modify(root, arr);
         return root;
     }
+
+    // Replace with sum of larger
+    static int sum = 0;
+
+    public static void rwsol(Node node) {
+        if (node == null)
+            return;
+
+        rwsol(node.right);
+
+        int original = node.data;
+        node.data = sum;
+        sum += original;
+
+        rwsol(node.left);
+    }
 }
