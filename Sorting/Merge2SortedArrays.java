@@ -16,18 +16,14 @@ import java.util.*;
                 j++;
             }
         }
-        if(i<n){
             while(i<n){
                 System.out.print(arr1[i] + " ");
                 i++;
             }
-        }
-        if(j<m){
             while(j<m){
                 System.out.print(arr2[j] + " ");
                 j++;
             }
-        }
      }  
      
      public static void main(String[] args) {

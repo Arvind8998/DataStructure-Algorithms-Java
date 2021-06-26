@@ -1,0 +1,8 @@
+Complete Tree
+Full Binary Tree/ 2-Tree /proper Tree -> 
+Every node shpuld have 2 child or leaf node(which do not have any node)
+
+Node are filled Left  to right, we move to next level when previous level is filled,
+Except last level previous level must be filled completely
+
+Skew Tree -> Left/ Right Oriented
