@@ -7,15 +7,15 @@ public class GenericTree {
 
     public static class Node {
         int data = 0;
-        ArrayList<Node> childs;
+        ArrayList<Node> children;
 
         Node(int data) {
             this.data = data;
-            this.childs = new ArrayList<>();
+            this.children = new ArrayList<>();
         }
     }
 
-    public static int height(Node root) {
+    public static int height(Node node) {
         int sum = -1;
 
         for (Node child : node.children) {
@@ -73,7 +73,7 @@ public class GenericTree {
     }
 
     public static boolean nodeToRootPath(Node node, int data, ArrayList<Node> ans) {
-        if (node == data) {
+        if (node.data == data) {
             ans.add(node);
             return true;
         }
@@ -86,11 +86,11 @@ public class GenericTree {
         if (res) {
             ans.add(node);
         }
-        return ans;
+        return res;
     }
 
     public static ArrayList<Node> nodeToRootPath(Node node, int data) {
-        if (node == data) {
+        if (node.data == data) {
             ArrayList<Node> base = new ArrayList<>();
             base.add(node);
             return base;
@@ -99,7 +99,7 @@ public class GenericTree {
         ArrayList<Node> smallAns = new ArrayList<>();
 
         for (Node child : node.children) {
-            smallAns = nodeToRootPath(node, data);
+            smallAns = nodeToRootPath(child, data);
             if (smallAns.size() != 0) {
                 break;
             }
@@ -161,7 +161,7 @@ public class GenericTree {
         return res;
     }
 
-    public static boolean IsSymmetric(Node node){
+    public static boolean IsSymmetric(Node node) {
         return areSymmetricMirror(node, node);
     }
 
@@ -169,32 +169,37 @@ public class GenericTree {
     static int ceil;
 
     public static void _ceilAndFloor(Node node, int data) {
-        if(node.data < data){
+        if (node.data < data) {
             floor = Math.max(node.data, data);
         }
-        if(node.data > data){
+        if (node.data > data) {
             floor = Math.min(node.data, data);
         }
-        for(Node child: node.children){
+        for (Node child : node.children) {
             ceilAndFloor(child, data);
-      }
+        }
     }
 
     public static void ceilAndFloor(Node node, int data) {
-        floor = -(int)1e9;
-        ceil = (int)1e9;
+        floor = -(int) 1e9;
+        ceil = (int) 1e9;
         _ceilAndFloor(node, data);
     }
 
-    public int floor(Node node, int ub){
+    public static int floor(Node node, int ub){
         int maxRes = -(int)1e9;
-
-
         for(Node child: node.children){
-          maxRes = Math.max(maxRes, floor(child, ub));
-
+            int recAns = floor(child, ub);
+            maxRes = Math.max(maxRes,recAns);
         }
+        return node.data < ub ? Math.max(node.data, maxRes) : maxRes;
+    }
 
-        return node.data < ub ? Math.max()
+    public static int kthLargest(Node node, int k){
+        int ub = (int)1e9;
+        for(int i=0; i<k; i++){
+           ub = floor(node, ub);
+        }
+        return ub;
     }
 }
