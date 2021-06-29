@@ -2,6 +2,9 @@ package GenericTrees;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import javax.swing.tree.TreeNode;
 
 public class GenericTree {
 
@@ -186,20 +189,97 @@ public class GenericTree {
         _ceilAndFloor(node, data);
     }
 
-    public static int floor(Node node, int ub){
-        int maxRes = -(int)1e9;
-        for(Node child: node.children){
+    public static int floor(Node node, int ub) {
+        int maxRes = -(int) 1e9;
+        for (Node child : node.children) {
             int recAns = floor(child, ub);
-            maxRes = Math.max(maxRes,recAns);
+            maxRes = Math.max(maxRes, recAns);
         }
         return node.data < ub ? Math.max(node.data, maxRes) : maxRes;
     }
 
-    public static int kthLargest(Node node, int k){
-        int ub = (int)1e9;
-        for(int i=0; i<k; i++){
-           ub = floor(node, ub);
+    public static int kthLargest(Node node, int k) {
+        int ub = (int) 1e9;
+        for (int i = 0; i < k; i++) {
+            ub = floor(node, ub);
         }
         return ub;
     }
+
+    public static void levelOrder(Node node) {
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.addLast(node);
+        int level = 0;
+        while (queue.size() > 0) {
+            int size = queue.size();
+            while (size-- > 0) {
+                Node lastNode = queue.removeFirst();
+                System.out.print(lastNode.data + " ");
+                for (Node child : lastNode.children) {
+                    queue.addLast(child);
+                }
+            }
+            level++;
+        }
+        System.out.print(".");
+    }
+
+    public static void levelOrderLinewise(Node node) {
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.addLast(node);
+        int level = 0;
+
+        while (queue.size() > 0) {
+            int size = queue.size();
+            while (size-- > 0) {
+                Node rn = queue.removeFirst();
+                System.out.print(rn.data + " ");
+
+                if (rn.left != null) {
+                    queue.addLast(rn.left);
+                }
+                if (rn.right != null) {
+                    queue.addLast(rn.right);
+                }
+            }
+            level++;
+        }
+        System.out.println();
+    }
+
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root == null) return ans;
+        
+        LinkedList<Integer> queue = new LinkedList<>();
+        LinkedList<Integer> stack = new LinkedList<>();
+        queue.addLast(root);
+        int level = 0;
+        
+        while(queue.size() > 0) {
+            int size = queue.size();
+            List<Integer> base = new ArrayList<>();
+            whike(size-- > 0){
+                TreeNode rn = queue.removeFirst();
+                base.add(rn.data);
+
+            if(level % 2 == 0){
+                for(Node child : root.children){
+                    stack.addFirst(child.data);
+                }
+            }
+            else{
+                for(int i = rn.children.size()-1; i>=0; i--){
+                    Node child = rn.children.get(i);
+                    stack.addFirst(child);
+                }
+            }
+            
+        }
+        
+    }
+    level++;
+    ans.add(base);
+    LinkedList<Node> temp = queue;
+    
 }
