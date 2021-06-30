@@ -86,12 +86,230 @@ public class Graph {
         return count;
     }
 
-    public static void preOrder(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis, int wsf, String psf) {
+    public static void preOrder(ArrayList<Edge>[] graph, int src, boolean[] vis, int wsf, String psf) {
+        System.out.println(src + " -> " + (psf + src) + " @ " + wsf);
+        vis[src] = true;
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr])
+                preOrder(graph, e.nbr, vis, wsf + e.wt, psf + src);
+        }
+
+        vis[src] = false;
+    }
+
+    public static void postOrder(ArrayList<Edge>[] graph, int src, boolean[] vis, int wsf, String psf) {
+        vis[src] = true;
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr])
+                postOrder(graph, e.nbr, vis, wsf + e.wt, psf + e.nbr);
+        }
+
+        System.out.println(src + " -> " + psf + " @ " + wsf);
+        vis[src] = false;
+    }
+
+    public static class lightestPathPair {
+        String psf = "";
+        int wsf = (int) 1e9;
+    }
+
+    public static lightestPathPair lightestPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
+        if (src == dest) {
+            lightestPathPair base = new lightestPathPair();
+            base.psf += src;
+            base.wsf = 0;
+
+            return base;
+        }
+
+        vis[src] = true;
+        lightestPathPair myAns = new lightestPathPair();
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr]) {
+                lightestPathPair recAns = lightestPath(graph, e.nbr, dest, vis);
+                if (recAns.wsf != -1 && recAns.wsf + e.wt < myAns.wsf) {
+                    myAns.psf = src + recAns.psf;
+                    myAns.wsf = recAns.wsf + e.wt;
+                }
+            }
+        }
+        vis[src] = false;
+        return myAns;
+    }
+
+    public static void lightestPath(ArrayList<Edge>[] graph, int src, int dest) {
+        boolean[] vis = new boolean[graph.length];
+        lightestPathPair ans = lightestPath(graph, src, dest, vis);
+
+        System.out.println("lightest Path: " + ans.psf + " of weight: " + ans.wsf);
+    }
+
+    public static class pathPair {
+        String psf = "";
+        int wsf = -1;
+    }
+
+    public static pathPair heaviestPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
+        if (src == dest) {
+            pathPair base = new pathPair();
+            base.psf += src;
+            base.wsf = 0;
+
+            return base;
+        }
+
+        vis[src] = true;
+        pathPair myAns = new pathPair();
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr]) {
+                pathPair recAns = heaviestPath(graph, e.nbr, dest, vis);
+                if (recAns.wsf != -1 && recAns.wsf + e.wt > myAns.wsf) {
+                    myAns.psf = src + recAns.psf;
+                    myAns.wsf = recAns.wsf + e.wt;
+                }
+            }
+        }
+        vis[src] = false;
+        return myAns;
+    }
+
+    public static void heaviestPath(ArrayList<Edge>[] graph, int src, int dest) {
+        boolean[] vis = new boolean[graph.length];
+        pathPair ans = heaviestPath(graph, src, dest, vis);
+
+        System.out.println("Heaviest Path: " + ans.psf + " of weight: " + ans.wsf);
+    }
+
+    public static class ceilFloorPair {
+        int ceil = (int) 1e9;
+        int floor = (int) 1e9;
+    }
+
+    public void ceilAndFloor(ArrayList<Edge>[] graph, int src, int data, boolean[] vis, int wsf, ceilFloorPair pair) {
+        if (wsf > data) {
+            pair.ceil = Math.min(data, pair.ceil);
+        }
+        if (wsf < data) {
+            pair.floor = Math.max(data, pair.floor);
+        }
+        vis[src] = true;
+
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr])
+                ceilAndFloor(graph, e.nbr, data, vis, wsf + e.wt, pair);
+        }
+        vis[src] = false;
+    }
+
+    public void ceilAndFloor(ArrayList<Edge>[] graph, int src, int data) {
+        ceilFloorPair pair = new ceilFloorPair();
+        boolean[] vis = new boolean[graph.length];
+        ceilAndFloor(graph, src, data, vis, 0, pair);
+    }
+
+    public static void dfs_GCC(ArrayList<Edge>[] graph, int src, boolean[] vis) {
+        vis[src] = true;
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr]) {
+                dfs_GCC(graph, e.nbr, vis);
+            }
+
+        }
+    }
+
+    public static int GCC(ArrayList<Edge>[] graph) {
+        int N = graph.length, componentCount = 0;
+        boolean[] vis = new boolean[N];
+
+        for (int i = 0; i < N; i++) {
+            if (!vis[i]) {
+                dfs_GCC(graph, i, vis);
+                componentCount++;
+            }
+        }
+        return componentCount;
+    }
+
+    public static void dfs_GCC(ArrayList<Edge>[] graph, int src, boolean[] vis, ArrayList<Integer> base) {
+        base.add(src);
+        vis[src] = true;
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr]) {
+                dfs_GCC(graph, e.nbr, vis, base);
+            }
+
+        }
+    }
+
+    public static void GCC(ArrayList<Edge>[] graph, ArrayList<ArrayList<Integer>> comps) {
+        int N = graph.length, componentCount = 0;
+        boolean[] vis = new boolean[N];
+
+        for (int i = 0; i < N; i++) {
+            ArrayList<Integer> base = new ArrayList<>();
+            if (!vis[i]) {
+                dfs_GCC(graph, i, vis, base);
+                componentCount++;
+                comps.add(base);
+            }
+        }
+    }
+
+    public int dfs(int[][] grid, int sr, int sc, int[][] dir) {
+        int count = 0;
+        grid[sr][sc] = 0;
+
+        for (int d = 0; d < dir.length; d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+            if (r >= 0 && c >= 0 && r < grid.length && c < grid[0].length && grid[r][c] == 1) {
+
+                count += dfs(grid, r, c, dir);
+            }
+
+        }
+        return count + 1;
+    }
+
+    public int maxAreaOfIsland(int[][] grid) {
+        int[][] dir = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
+        int areaCount = 0, n = grid.length, m = grid[0].length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1)
+                    areaCount = Math.max(areaCount, dfs(grid, i, j, dir));
+            }
+        }
+        return areaCount;
 
     }
 
-    public static void postOrder(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis, int wsf, String psf) {
+    public static void HamiltonianPath(ArrayList<Edge>[] graph, int osrc, int src, int edgeCount, String psf,
+            boolean[] vis) {
+        if (edgeCount == graph.length - 1) {
+            int idx = findEdge(graph, src, osrc);
+            if (idx != -1) {
+                System.out.println(psf + src + "*");
+            } else {
+                System.out.println(psf + src + ".");
+            }
+            return;
+        }
+        vis[src] = true;
 
+        for (Edge e : graph[src]) {
+            if (!vis[e.nbr]) {
+                HamiltonianPath(graph, osrc, e.nbr, edgeCount + 1, psf + e.src, vis);
+            }
+        }
+        vis[src] = false;
+    }
+
+    public static void HamiltonianPath(ArrayList<Edge>[] graph, int src) {
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+        HamiltonianPath(graph, src, src, 0, "", vis);
     }
 
     public static void construction() {
@@ -110,7 +328,10 @@ public class Graph {
         addEdge(graph, 5, 6, 3);
 
         boolean[] vis = new boolean[N];
-        printAllPath(graph, 0, 6, vis, "");
+        // printAllPath(graph, 0, 6, vis, "");
+        // heaviestPath(graph, 0,6);
+        // preOrder(graph, 0, vis, 0, "");
+        GCC(graph);
     }
 
     public static void main(String[] args) {
