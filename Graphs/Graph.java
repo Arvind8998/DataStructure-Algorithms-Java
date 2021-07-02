@@ -182,7 +182,7 @@ public class Graph {
 
     public static class ceilFloorPair {
         int ceil = (int) 1e9;
-        int floor = (int) 1e9;
+        int floor = -(int) 1e9;
     }
 
     public void ceilAndFloor(ArrayList<Edge>[] graph, int src, int data, boolean[] vis, int wsf, ceilFloorPair pair) {

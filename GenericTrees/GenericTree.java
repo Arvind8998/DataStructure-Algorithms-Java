@@ -114,6 +114,30 @@ public class GenericTree {
         return smallAns;
     }
 
+    public static ArrayList<Integer> __nodeToRootPath(Node node, int data){
+        if(node.data == data){
+            ArrayList<Integer> base = new ArrayList<Integer>();
+            base.add(node.data);
+            return base;
+        }
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(Node child: node.children){
+           ArrayList<Integer> recAns = __nodeToRootPath(child,data);
+           if(recAns.size() >0){
+              for(int a: recAns){
+                  ans.add(a);
+              }
+              break ;   
+           }
+            
+        }
+        if(ans.size() > 0){
+             ans.add(node.data);
+        }
+       
+       return ans;
+    }
+
     public static int distanceBetweenNodes(Node node, int d1, int d2) {
         int lcaNode = lca(node, d1, d2);
         ArrayList<Integer> lcaNodeToRootNodePath = nodeToRootPath(node, lcaNode);
@@ -223,6 +247,57 @@ public class GenericTree {
         }
         System.out.print(".");
     }
+
+    public static Node getTail(Node node){
+        while(node.children.size() !=0){
+            node = node.children.get(0);
+        }
+        return node;
+    }
+    
+      public static void linearize(Node node){
+        for(Node child: node.children){
+            linearize(child);
+        }
+        for(int i=node.children.size()-1; i>0; i--){
+            Node tail = getTail(node.children.get(i-1));
+            tail.children.add(node.children.get(i));
+            node.children.remove(i); 
+        }
+      }
+
+      public static ArrayList<Integer> ___nodeToRootPath(Node node, int data) {
+        if (node.data == data) {
+          ArrayList<Integer> path = new ArrayList<>();
+          path.add(node.data);
+          return path;
+        }
+    
+        for (Node child : node.children) {
+          ArrayList<Integer> ptc = ___nodeToRootPath(child, data);
+          if (ptc.size() > 0) {
+            ptc.add(node.data);
+            return ptc;
+          }
+        }
+    
+        return new ArrayList<>();
+      }
+    
+      public static int lca(Node node, int d1, int d2) {
+        ArrayList<Integer> path1 = ___nodeToRootPath(node, d1);
+        ArrayList<Integer> path2 = ___nodeToRootPath(node, d2);
+        int l1 = path1.size()-1, l2 =path2.size()-1, potentialLca = -1;
+        while(l1  >= 0 && l2 >= 0){
+            if(path1.get(l1) != path2.get(l2))
+                break;
+                potentialLca = path1.get(l1);
+                l1--;
+                l2--;
+            
+        }
+        return potentialLca;
+      }
 
     public static void levelOrderLinewise(Node node) {
         LinkedList<Node> queue = new LinkedList<>();
