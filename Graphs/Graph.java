@@ -1,6 +1,7 @@
 package Graphs;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Graph {
     public static class Edge {
@@ -312,6 +313,149 @@ public class Graph {
         HamiltonianPath(graph, src, src, 0, "", vis);
     }
 
+    public static void BFS(ArrayList<Edge>[] graph, int src, int dest) {
+        LinkedList<Integer> que = new LinkedList<>();
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+
+        que.addLast(src);
+        int level = 0;
+
+        boolean isCyclePresent = false;
+        int shortestPath = -1;
+
+        while (que.size() != 0) {
+            int size = que.size();
+            while (size-- > 0) {
+                int rvtx = que.removeFirst();
+
+                // for cycle
+                if (vis[rvtx]) {
+                    isCyclePresent = true;
+                    continue;
+                }
+
+                if (rvtx == dest) {
+                    shortestPath = level;
+                }
+
+                vis[rvtx] = true;
+                for (Edge e : graph[rvtx]) {
+                    if (!vis[e.nbr]) {
+                        que.addLast(e.nbr);
+                    }
+                }
+            }
+        }
+    }
+
+    public static boolean isCyclic(ArrayList<Edge>[] graph, int src) {
+        LinkedList<Integer> queue = new LinkedList<>();
+        queue.addLast(src);
+        int level = 0;
+        boolean isCyclePresent = false;
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+
+        while (queue.size() > 0) {
+            int length = queue.size();
+            while (length-- > 0) {
+                int rvtx = queue.removeFirst();
+
+                if (vis[rvtx]) {
+                    isCyclePresent = true;
+                    return isCyclePresent;
+                }
+
+                vis[rvtx] = true;
+                for (Edge e : graph[rvtx]) {
+                    if (!vis[e.nbr]) {
+                        queue.addLast(e.nbr);
+                    }
+                }
+            }
+        }
+        return isCyclePresent;
+    }
+
+    public static boolean isCyclePresent(ArrayList<Edge>[] graph, int src) {
+        boolean res = false;
+        for (int i = 0; i < graph.length; i++) {
+            res = res || isCyclic(graph, i);
+        }
+        return res;
+    }
+
+    public static class BFS_Pair {
+        int vrtx = 0;
+        String psf = "";
+        int wsf = 0;
+
+        BFS_Pair(int vrtx, String psf, int wsf) {
+            this.vrtx = vrtx;
+            this.psf = psf;
+            this.wsf = wsf;
+        }
+    }
+
+    public static void findUniqueShortestPath(ArrayList<Edge>[] graph, int src) {
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+        LinkedList<BFS_Pair> queue = new LinkedList<>();
+        queue.addLast(new BFS_Pair(src, src + "", 0));
+
+        while (queue.size() > 0) {
+            int length = queue.size();
+            while (length-- > 0) {
+                BFS_Pair rp = queue.removeFirst();
+
+                if (vis[rp.vrtx])
+                    continue;
+
+                System.out.println(rp.vrtx + "->" + rp.psf + "@" + rp.wsf);
+
+                vis[rp.vrtx] = true;
+
+                for (Edge e : graph[rp.vrtx]) {
+                    if (!vis[e.nbr]) {
+                        queue.addLast(new BFS_Pair(e.nbr, rp.psf + e.nbr, rp.wsf + e.wt));
+                    }
+                }
+            }
+        }
+    }
+
+    public static int infectionSpreadCount(ArrayList<Edge>[] graph, int src, int givendays) {
+        LinkedList<Integer> queue = new LinkedList<>();
+        queue.addLast(src);
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+        int days = 1;
+        int infectedCount = 0;
+
+        while (queue.size() > 0) {
+            int length = queue.size();
+            if (days > givendays)
+                break;
+
+            while (length-- > 0) {
+                int ip = queue.removeFirst();
+
+                if (vis[ip])
+                    continue;
+                vis[ip] = true;
+                infectedCount++;
+                for (Edge e : graph[ip]) {
+                    if (!vis[e.nbr]) {
+                        queue.addLast(e.nbr);
+                    }
+                }
+            }
+            days++;
+        }
+        return infectedCount;
+    }
+
     public static void construction() {
         int N = 7;
         ArrayList<Edge>[] graph = new ArrayList[N];
@@ -331,7 +475,8 @@ public class Graph {
         // printAllPath(graph, 0, 6, vis, "");
         // heaviestPath(graph, 0,6);
         // preOrder(graph, 0, vis, 0, "");
-        GCC(graph);
+        // GCC(graph);
+        findUniqueShortestPath(graph, 0);
     }
 
     public static void main(String[] args) {
