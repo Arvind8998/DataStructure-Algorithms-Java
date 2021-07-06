@@ -52,12 +52,12 @@ public class InOrderPrePostOrderTraversal {
 
     }
 
-    public static int size(Node node){
-        if(node == null){
-            return 1;
-        }
-        int left 
-    }
+    public static int size(Node node) {
+        if(node == null) return 0;
+        int left = size(node.left);
+        int right = size(node.right);
+        return left+right+1;
+      }
 
     public static int sum(Node node) {
         if (node == null) {
@@ -88,13 +88,11 @@ public class InOrderPrePostOrderTraversal {
 
     // if edge height is to be returned return -1, for node height return 0
     public static int height(Node node) {
-        if (node == null) {
-            return -1;
-        }
+        if(node == null) return -1;
         int left = height(node.left);
         int right = height(node.right);
-        return Math.max(left + right) + 1;
-    }
+        return Math.max(left, right) +1;
+      }
 
     public static boolean findData(Node node, int data){
         if(node == null) return false;
@@ -126,6 +124,38 @@ public class InOrderPrePostOrderTraversal {
         nodeToRootPath(root, data, ans);
         return ans;
     }
+
+    public static ArrayList<Integer> __nodeToRootPath(Node node, int data){
+        if(node == null) return new ArrayList<Integer>();
+        
+        if(node.data == data){
+            ArrayList<Integer> base = new ArrayList<Integer>();
+            base.add(node.data);
+            return base;
+        }
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        ArrayList<Integer> left = __nodeToRootPath(node.left, data);
+        ArrayList<Integer> right = __nodeToRootPath(node.right, data);
+        
+        if(left.size() >0){
+            for(int el: left)
+                ans.add(el);
+            ans.add(node.data);
+            return ans;
+        }
+        
+        else if(right.size() >0){
+            for(int el: right)
+                ans.add(el);
+            ans.add(node.data);
+            return ans;
+        }
+        
+        
+        return ans;
+      }
 
     public static void KLevelsDown(Node node, int k,ArrayList<Integer> ans) {
         if (node == null || k < 0 )
