@@ -53,11 +53,12 @@ public class InOrderPrePostOrderTraversal {
     }
 
     public static int size(Node node) {
-        if(node == null) return 0;
+        if (node == null)
+            return 0;
         int left = size(node.left);
         int right = size(node.right);
-        return left+right+1;
-      }
+        return left + right + 1;
+    }
 
     public static int sum(Node node) {
         if (node == null) {
@@ -88,11 +89,12 @@ public class InOrderPrePostOrderTraversal {
 
     // if edge height is to be returned return -1, for node height return 0
     public static int height(Node node) {
-        if(node == null) return -1;
+        if (node == null)
+            return -1;
         int left = height(node.left);
         int right = height(node.right);
-        return Math.max(left, right) +1;
-      }
+        return Math.max(left, right) + 1;
+    }
 
     public static boolean findData(Node node, int data){
         if(node == null) return false;
@@ -125,40 +127,40 @@ public class InOrderPrePostOrderTraversal {
         return ans;
     }
 
-    public static ArrayList<Integer> __nodeToRootPath(Node node, int data){
-        if(node == null) return new ArrayList<Integer>();
-        
-        if(node.data == data){
+    public static ArrayList<Integer> __nodeToRootPath(Node node, int data) {
+        if (node == null)
+            return new ArrayList<Integer>();
+
+        if (node.data == data) {
             ArrayList<Integer> base = new ArrayList<Integer>();
             base.add(node.data);
             return base;
         }
-        
+
         ArrayList<Integer> ans = new ArrayList<>();
-        
+
         ArrayList<Integer> left = __nodeToRootPath(node.left, data);
         ArrayList<Integer> right = __nodeToRootPath(node.right, data);
-        
-        if(left.size() >0){
-            for(int el: left)
-                ans.add(el);
-            ans.add(node.data);
-            return ans;
-        }
-        
-        else if(right.size() >0){
-            for(int el: right)
-                ans.add(el);
-            ans.add(node.data);
-            return ans;
-        }
-        
-        
-        return ans;
-      }
 
-    public static void KLevelsDown(Node node, int k,ArrayList<Integer> ans) {
-        if (node == null || k < 0 )
+        if (left.size() > 0) {
+            for (int el : left)
+                ans.add(el);
+            ans.add(node.data);
+            return ans;
+        }
+
+        else if (right.size() > 0) {
+            for (int el : right)
+                ans.add(el);
+            ans.add(node.data);
+            return ans;
+        }
+
+        return ans;
+    }
+
+    public static void KLevelsDown(Node node, int k, ArrayList<Integer> ans) {
+        if (node == null || k < 0)
             return;
 
         if (k == 0) {
@@ -217,12 +219,12 @@ public class InOrderPrePostOrderTraversal {
             return new bPair();
 
         bPair lPair = isBalanced2(node.left);
-        if (lPair.isBal) {
+        if (!lPair.isBal) {
             return lPair;
         }
 
         bPair rPair = isBalanced2(node.right);
-        if (rPair.isBal) {
+        if (!rPair.isBal) {
             return rPair;
         }
 
@@ -277,37 +279,67 @@ public class InOrderPrePostOrderTraversal {
         return ans;
     }
 
-    public static class largestBTPair{
+    public static class largestBTPair {
         boolean isBST = true;
-        int max = -(int)1e9;
-        int min = (int)1e9;
-        
+        int max = -(int) 1e9;
+        int min = (int) 1e9;
+
         int maxSize = 0;
         Node node = null;
     }
-    
-    public static largestBTPair largestBTree(Node node){
-        if(node == null) return new largestBTPair();
-        
+
+    public static largestBTPair largestBTree(Node node) {
+        if (node == null)
+            return new largestBTPair();
+
         largestBTPair lPair = largestBTree(node.left);
         largestBTPair rPair = largestBTree(node.right);
-        
+
         largestBTPair myAns = new largestBTPair();
-        
-        if(lPair.isBST && rPair.isBST && lPair.max < node.data && rPair.min > node.data){
+
+        if (lPair.isBST && rPair.isBST && lPair.max < node.data && rPair.min > node.data) {
             myAns.isBST = true;
             myAns.max = Math.max(node.data, rPair.max);
             myAns.min = Math.min(node.data, lPair.min);
-            myAns.maxSize = lPair.maxSize + rPair.maxSize +1;
+            myAns.maxSize = lPair.maxSize + rPair.maxSize + 1;
             myAns.node = node;
         }
-        
-        else{
+
+        else {
             myAns.isBST = false;
             myAns.maxSize = lPair.maxSize > rPair.maxSize ? lPair.maxSize : rPair.maxSize;
             myAns.node = lPair.maxSize > rPair.maxSize ? lPair.node : rPair.node;
-        }   
-      return myAns;
+        }
+        return myAns;
+    }
+
+    public static class binaryPair {
+        int maxEle = -(int) 1e9;
+        int minEle = (int) 1e9;
+        boolean isBst = true;
+    }
+
+    public static binaryPair isBStTree(Node node) {
+        if (node == null)
+            return new binaryPair();
+
+        binaryPair lPair = isBStTree(node.left);
+        if (!lPair.isBst)
+            return lPair;
+
+        binaryPair rPair = isBStTree(node.right);
+        if (!rPair.isBst)
+            return rPair;
+
+        binaryPair self = new binaryPair();
+        self.isBst = false;
+
+        if (lPair.maxEle < node.data && rPair.minEle > node.data) {
+            self.maxEle = Math.max(node.data, rPair.maxEle);
+            self.minEle = Math.min(node.data, lPair.minEle);
+            self.isBst = true;
+        }
+        return self;
     }
 
 }
