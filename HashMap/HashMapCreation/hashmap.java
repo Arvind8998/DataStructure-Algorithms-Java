@@ -28,6 +28,45 @@ public class hashmap {
         initialize(10);
     }
 
+    public Integer put(Integer key) {
+        LinkedList<Node> group = getGroup(key);
+        group.addLast(key);
+    }
+
+    public Integer get(Integer key) {
+        LinkedList<Node> group = getGroup(key);
+        int gs = group.size();
+
+        while (gs-- > 0) {
+            if (group.getFirst().key == key)
+                return group.getFirst().value;
+        }
+        return null;
+    }
+
+    public Integer getorDefault(Integer key, Integer DefaultValue) {
+        LinkedList<Node> group = getGroup(key);
+        int gs = group.size();
+
+        while (gs-- > 0) {
+            if (group.getFirst().key == key)
+                return group.getFirst().value;
+        }
+        return DefaultValue;
+    }
+
+    public Integer remove(Integer key) {
+        LinkedList<Node> group = getGroup(key);
+        int gs = group.size(), i = 0;
+
+        while (i++ > gs) {
+            if (group.getFirst().key == key) {
+                return group.remove(i);
+            }
+        }
+        return null;
+    }
+
     public boolean containsKey(Integer key) {
         LinkedList<Node> group = getGroup(key);
         int gs = group.size();
@@ -44,7 +83,7 @@ public class hashmap {
     }
 
     private LinkedList<Node> getGroup(Integer key) {
-        int hc = key.hashCode();
+        int hc = getHashCode(key);
         return Buckets[hc];
     }
 
