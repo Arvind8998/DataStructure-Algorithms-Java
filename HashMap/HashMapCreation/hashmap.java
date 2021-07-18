@@ -13,57 +13,121 @@ public class hashmap {
 
     private LinkedList<Node>[] Buckets;
     private int bucketLen = 0;
-    private int TotalNoOfNodes = 0;
+    private int totalNoOfNodes = 0;
 
     private void initialize(int size) {
-        bucketLen = size;
-        Buckets = new LinkedList[bucketLen];
+        this.bucketLen = size;
+        this.Buckets = new LinkedList[bucketLen];
 
         for (int i = 0; i < size; i++)
             Buckets[i] = new LinkedList<>();
-        TotalNoOfNodes = 0;
+        this.totalNoOfNodes = 0;
     }
 
     hashMap(){
         initialize(10);
     }
 
-    public Integer put(Integer key) {
+    public ArrayList<Integer> keySet(){
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(int i=0; i<this.bucketLen; i++){
+            LinkedList<Node> group = this.Buckets[i];
+            int size = group.size();
+
+            while(size-- > 0){
+                Node node = group.removeFirst();
+                ans.add(node.key);
+                group.addLast(node);
+            }
+        }
+        return ans;
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        int tempSize = this.totalNoOfNodes;
+
+        for(int i=0; i<this.bucketLen; i++){
+            LinkedList<Node> group = this.Buckets[i];
+            int size = group.size();
+
+            while(size -- > 0){
+                Node node = group.removeFirst();
+                sb.append(node.key + "=" + node.value);
+                group.addLast(node);
+                if(--tempSize !=0)
+                    sb.append(",");
+            }
+        }
+        sb.toString("}");
+        return sb.toString();
+    }
+
+    public int size(){
+        return this.totalNoOfNodes;
+    }
+
+    public void rehash(){
+        LinkedList<Node>[] temp = this.Buckets;
+        initialize((int) this.bucketLen *2);
+
+        for(int i=0; i<temp.length; i++){
+            LinkedList<Node> group = this.temp[i];
+            int size = group.size();
+            while(size-- >0){
+                Node node = group.removeFirst();
+                put(node.key, node.value;)
+            }
+        }
+    }
+
+    public Integer put(Integer key, Integer value) {
+        boolean res = containsKey(key);
         LinkedList<Node> group = getGroup(key);
-        group.addLast(key);
+
+        if(res){
+            group.getFirst().value = value;
+        }
+        else{
+            Node node = new Node(key, value);
+            group.addLast(key);
+            this.totalNoOfNodes++;
+            double lambda = group.size() / (1.0 * this.bucketLen);
+
+            if(lambda > 0.4)
+                rehash();
+        }
+    }
+
+    public void putIfAbsent(Integer key, Integer defaultValue){
+        boolean res = containsKey(key);
+        LinkedList<Node> group = getGroup(key);
+        if(!res){
+            Node node = new Node(key, defaultValue);
+            group.addLast(node);
+            this.totalNoOfNodes++;
+        }
     }
 
     public Integer get(Integer key) {
+        boolean res = containsKey(key);
         LinkedList<Node> group = getGroup(key);
-        int gs = group.size();
-
-        while (gs-- > 0) {
-            if (group.getFirst().key == key)
-                return group.getFirst().value;
-        }
-        return null;
+        return res ? group.getFirst().value : null;
     }
 
-    public Integer getorDefault(Integer key, Integer DefaultValue) {
-        LinkedList<Node> group = getGroup(key);
-        int gs = group.size();
-
-        while (gs-- > 0) {
-            if (group.getFirst().key == key)
-                return group.getFirst().value;
-        }
-        return DefaultValue;
+    public Integer getorDefault(Integer key, Integer defaultValue) {
+      Integer val = get(key);
+      return val !=null ? val : defaultValue;
     }
 
     public Integer remove(Integer key) {
-        LinkedList<Node> group = getGroup(key);
-        int gs = group.size(), i = 0;
-
-        while (i++ > gs) {
-            if (group.getFirst().key == key) {
-                return group.remove(i);
-            }
-        }
+      boolean res = containsKey(key);
+      LinkedList<Node> group = getGroup(key);
+        if(res){
+            this.totalNoOfNodes--;
+            return group.removeFirst().value;
+        } 
         return null;
     }
 
@@ -73,7 +137,7 @@ public class hashmap {
         boolean res = false;
 
         while (gs-- > 0) {
-            if (group.getFirst().key == key) {
+            if (group.getFirst().key.equals(key)) {
                 res = true;
                 break;
             }
