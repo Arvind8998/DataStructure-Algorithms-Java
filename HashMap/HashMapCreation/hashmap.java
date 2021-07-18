@@ -146,10 +146,10 @@ public class hashmap {
         return res;
     }
 
-    private LinkedList<Node> getGroup(Integer key) {
-        int hc = getHashCode(key);
-        return Buckets[hc];
-    }
+        private LinkedList<Node> getGroup(Integer key) {
+            int hc = getHashCode(key);
+            return Buckets[hc];
+        }
 
     private int getHashCode(Integer key) {
         return Math.abs(key.hashCode()) % bucketLen;
