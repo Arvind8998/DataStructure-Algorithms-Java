@@ -1,45 +1,24 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
- * }
- */
-public class Solution {
-
-    public int lengthOfLL(ListNode node){
-    int len = 0;
-        while(node != null){
-        node = node.next;
-            len++;
-    }
-        return len;
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> map = new HashMap<>();  
+        ArrayList<Integer> intersected = new ArrayList<>();
         
-    }
-    
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        int a = lengthOfLL(headA);
-        int b = lengthOfLL(headB);
+        for(int el: nums1)
+            map.put(el, map.getOrDefault(el, 0) +1);
         
-        ListNode biggerNode = a >= b ? headA : headB;
-        ListNode smallerNode = a < b ? headA : headB;
+        for(int el: nums2){
+            if(map.containsKey(el)){
+                intersected.add(el);
+                map.remove(el);
+            }
+        }
         
-    
-    int diff = Math.abs(a-b);
-    
-    while(diff-- > 0){
-    biggerNode = biggerNode.next;
+        int[] ans = new int[intersected.size()];
+        int idx =0;
+        
+        for(int el : intersected)
+            ans[idx++] = el;
+        
+        return ans;
     }
-    
-    while(biggerNode != smallerNode){
-        biggerNode = biggerNode.next;
-        smallerNode = smallerNode.next;
-    }
-    return biggerNode;
-
-}
 }
