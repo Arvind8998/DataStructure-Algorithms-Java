@@ -104,6 +104,19 @@ public class InOrderPrePostOrderTraversal {
         return findData(node.left, data) || findData(node.right, data)
     }
 
+    public static Node removeLeaves(Node node){
+        if(node == null) return null;
+        
+      if(node.left == null && node.right == null)
+          return null;
+          
+      node.left = removeLeaves(node.left);
+      node.right = removeLeaves(node.right);
+      
+      return node;
+          
+    }
+
     public static boolean nodeToRootPath(Node node, int data, ArrayList<Node> ans) {
         if (node == null)
             return false;
@@ -157,6 +170,31 @@ public class InOrderPrePostOrderTraversal {
         }
 
         return ans;
+    }
+
+
+    public ArrayList<TreeNode> nodeToRootPath4(TreeNode node, int data){
+        if(node == null) return null;
+        
+        if(node.val == data){
+            ArrayList<TreeNode> base = new ArrayList<>();
+            base.add(node);
+            return base;
+        }
+        ArrayList<TreeNode> left = nodeToRootPath4(node.left, data);
+        if(left !=null){
+            left.add(node);
+            return left;
+        }
+        
+        ArrayList<TreeNode> right = nodeToRootPath4(node.right, data);
+        if(right !=null){
+            right.add(node);
+            return right;
+        }
+        
+        return null;
+        
     }
 
     public static void KLevelsDown(Node node, int k, ArrayList<Integer> ans) {
