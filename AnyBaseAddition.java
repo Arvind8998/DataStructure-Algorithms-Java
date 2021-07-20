@@ -27,5 +27,4 @@ public static Scanner scn = new Scanner(System.in);
         int b = scn.nextInt();
         System.out.println(AnyBaseAddition(n, m, b));
     }
-   
 }
