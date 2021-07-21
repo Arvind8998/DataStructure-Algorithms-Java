@@ -166,16 +166,26 @@ public class recursionstart {
     public static int[] allIndex(int[] arr, int data, int idx) {
         if (idx >= arr.length)
             return new int[arr.length];
-        allIndex(arr, data, idx + 1);
+        int[] ans = allIndex(arr, data, idx + 1);
         if (arr[idx] == data) {
-            arr[arr.length + 1] = idx;
+            ans[idx] = idx;
+            return ans;
         }
-        return arr;
+        return ans;
     }
 
-    // public static ArrayList<String> subsequnce(String str, int idx) {
+    public static ArrayList<String> subsequnce(String str, int idx) {
+        if(str.length() == 0){
+            ArrayList<String> base = new ArrayList<>();
+            base.add(str);
+            return base;
+        }
+        
+        char ch = str.charAt(0);
+        subsequnce
 
-    // }
+
+    }
 
     // public static int subsequnce(String str, int idx, String asf,
     // ArrayList<String> ans) {
@@ -185,8 +195,9 @@ public class recursionstart {
     public static void main(String[] args) {
         // recursionPattern(1, 6);
         int[] arr = { 1, 2, 3, 4, 4, 4, 4, 5, 5, 6 };
-        allIndex(arr, 4, 0);
-
+        int[] ans = allIndex(arr, 5, 0);
+        for (int a : ans)
+            System.out.println(a);
     }
 
 }
