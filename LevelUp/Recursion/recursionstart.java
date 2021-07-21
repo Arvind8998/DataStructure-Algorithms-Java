@@ -1,6 +1,6 @@
 package LevelUp.Recursion;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class recursionstart {
     public static void pppppp(int a) {
@@ -163,29 +163,143 @@ public class recursionstart {
         return arr[idx] == data ? idx : -1;
     }
 
-    public static int[] allIndex(int[] arr, int data, int idx) {
+    public static int[] allIndex(int[] arr, int data, int idx, int count) {
         if (idx >= arr.length)
-            return new int[arr.length];
-        allIndex(arr, data, idx + 1);
-        if (arr[idx] == data) {
-            arr[arr.length + 1] = idx;
-        }
-        return arr;
+            return new int[count];
+
+        if (arr[idx] == data)
+            count++;
+
+        int[] ans = allIndex(arr, data, idx + 1, count);
+
+        if (arr[idx] == data)
+            ans[count - 1] = idx;
+
+        return ans;
     }
 
-    // public static ArrayList<String> subsequnce(String str, int idx) {
+    public static ArrayList<String> subsequence(String str, int idx) {
+        if (idx == str.length()) {
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
 
-    // }
+        ArrayList<String> smallAns = subsequence(str, idx + 1);
+        ArrayList<String> myAns = new ArrayList<>(smallAns);
+        for (String s : smallAns)
+            myAns.add(str.charAt(idx) + s);
 
-    // public static int subsequnce(String str, int idx, String asf,
-    // ArrayList<String> ans) {
+        return myAns;
+    }
 
-    // }
+    public static int subsequence(String str, int idx, String asf, ArrayList<String> ans) {
+        if (idx == str.length()) {
+            ans.add(asf);
+            return 1;
+        }
+        int count = 0;
+        count += subsequence(str, idx + 1, asf, ans);
+        count += subsequence(str, idx + 1, asf + str.charAt(idx), ans);
+
+        return count;
+    }
+
+    public static String[] nokiaKeys = { ".;", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tu", "vwx", "yz" };
+
+    public static int nokiaKeyPad(String str, String ans) {
+        if (str.length() == 0) {
+            System.out.println(ans);
+            return 1;
+        }
+        int count = 0;
+        char ch = str.charAt(0);
+        String code = nokiaKeys[ch - '0'];
+
+        count += nokiaKeyPad(str.substring(1));
+
+        return count;
+    }
+
+    public static int stairPath(int n, String psf,ArrayList<String> ans) {
+        if(n== 0){
+            System.out.println(psf);
+            ans.add(psf);
+            return 1;
+        }
+
+        int count = 0;
+        for(int jump=1; jump<=3 && n-jump >=0; jump++){
+            count += stairPath(n-jump, psf+jump, ans);
+        }
+        return count;
+    }
+
+    public static int boardPath(int n, String psf,ArrayList<String> ans) {
+        if(n==0){
+            System.out.println(psf);
+            ans.add(psf);
+            return 1;
+        }
+        int count = 0;
+        for(int dice=1; dice<n; dice++){
+            count += boardPath(n-dice, psf+dice, ans);
+        }
+        return count;
+    }
+
+    public static int boardPathArr(int[] arr, int n, String ans) {
+        if(n==0){
+            System.out.println(ans);
+            return 1;
+        }
+        int count = 0;
+        for(int i=0; i<arr.length && n-arr[i] >=0; i++){
+            count += boardPathArr(arr, n-i, ans+arr[i]);
+        }
+        return count;
+    }
+
+    public static int mazePath_HVD(int sr, int sc, int er, int ec,  String psf,int[][] dir, String[] dirS, ArrayList<String> ans) {
+     if(sr == er && sc == ec){
+         System.out.println(psf);
+         ans.add(psf);
+         return 1;
+     }
+int count= 0;
+     for(int d=0; d<dir.length; d++){
+         int r = sr + dir[d][0];
+         int c = sc + dir[d][1];
+         if(r >=0 && c >= 0 && r<= er && c <= ec ){
+           count += mazePath_HVD(r,c, er, ec, psf+dirS[d],dir, dirS, ans);
+         }
+     }
+     return count;
+    }
+
+    public static int mazePath_HVD_multi(int sr, int sc, int er, int ec,  String psf,int[][] dir, String[] dirS, ArrayList<String> ans) {
+        if(sr == er && sc == ec){
+            System.out.println(psf);
+            ans.add(psf);
+            return 1;
+        }
+   int count= 0;
+        for(int d=0; d<dir.length; d++){
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+            if(r >=0 && c >= 0 && r<= er && c <= ec ){
+              count += mazePath_HVD(r,c, er, ec, psf+dirS[d],dir, dirS, ans);
+            }
+        }
+        return count;
+       }
 
     public static void main(String[] args) {
-        // recursionPattern(1, 6);
-        int[] arr = { 1, 2, 3, 4, 4, 4, 4, 5, 5, 6 };
-        allIndex(arr, 4, 0);
+        int[][] dir = {{0,1}, {1,1}, {1,0}};
+        String[] dirs = {"H", "D", "V"};
+        ArrayList<String> ans = new ArrayList<>();
+        System.out.println(mazePath_HVD(0, 0, 2, 2,"", dir, dirs, ans));
+        recursionPattern(1, 6);
 
     }
 
