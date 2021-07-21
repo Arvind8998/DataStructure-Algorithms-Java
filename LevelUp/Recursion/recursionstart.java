@@ -216,7 +216,7 @@ public class recursionstart {
         char ch = str.charAt(0);
         String code = nokiaKeys[ch - '0'];
 
-        count += nokiaKeyPad(str.substring(1));
+        count += nokiaKeyPad(str.substring(1),ans+ code);
 
         return count;
     }
