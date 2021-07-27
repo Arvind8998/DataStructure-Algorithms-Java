@@ -20,16 +20,6 @@ public class NQueenSet {
     }
 
 
-    public static boolean isQueenSafeToPlace(boolean[][] box, int sr, int sc){
-        int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
-        
-        int n = dir.length, m = dir[0].length;
-
-        for(int d=0; d<dir.length; d++){
-            for(int radius=0;)
-        }
-    }
-
     public static int nQueen_01(boolean[][] box, int bno, int tnq, String asf) {
         if (tnq == 0) {
             System.out.println(asf);
