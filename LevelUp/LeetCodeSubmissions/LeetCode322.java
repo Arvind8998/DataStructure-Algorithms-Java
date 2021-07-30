@@ -1,0 +1,27 @@
+class Solution {
+    public int getcoinCount(int[] coins, int amount, int idx,int[][] dp){
+        
+        if(amount == 0){
+            return 0;
+        }
+        if(dp[idx][amount]!=0){
+            return dp[idx][amount];
+        }
+        int count = Integer.MAX_VALUE;
+        
+        for(int i=idx; i>=0; i--){
+            if(amount-coins[i] >=0){
+                count = Math.min(count, getcoinCount(coins, amount-coins[i], i,dp));
+            }
+        }
+            return dp[idx][amount] = count==Integer.MAX_VALUE ?count :count+1;
+    }
+    
+    public int coinChange(int[] coins, int amount) {
+        int len = coins.length-1;
+        int[][] dp = new int[coins.length+1][amount+1];
+        int ret = getcoinCount(coins, amount, len,dp);
+        return ret== Integer.MAX_VALUE ?-1: ret;
+       
+    }
+}
