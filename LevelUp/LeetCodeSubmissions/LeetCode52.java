@@ -1,7 +1,7 @@
 class Solution {
     boolean[] row, col, diag, adiag;
 
-    public int nQueen_01(int n, int m, int floor, int tnq, String asf, boolean[] row, boolean[] col, boolean[] diag, boolean[] adiag) {
+    public int nQueen_01(int n, int m, int floor, int tnq, String asf) {
         if (tnq == 0) {
             System.out.println(asf);
             return 1;
@@ -13,7 +13,7 @@ class Solution {
             int r = floor, c = room;
             if (!col[c] && !diag[r + c] && !adiag[r - c + m - 1]) {
                 col[c] = diag[r + c] = adiag[r - c + m - 1] = true;
-                count += nQueen_01(n, m, floor + 1, tnq - 1, asf + "(" + r + "," + c + ") ", row, col, diag, adiag);
+                count += nQueen_01(n, m, floor + 1, tnq - 1, asf + "(" + r + "," + c + ") ");
                 col[c] = diag[r + c] = adiag[r - c + m - 1] = false;
             }
         }
@@ -27,6 +27,6 @@ class Solution {
         diag = new boolean[n + n - 1];
         adiag = new boolean[n + n - 1];
         boolean[][] box = new boolean[n][n];
-        return nQueen_01(n, n, 0, n, "", row, col, diag, adiag);
+        return nQueen_01(n, n, 0, n, "");
     }
 }
