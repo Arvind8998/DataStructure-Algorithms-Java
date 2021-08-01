@@ -11,10 +11,10 @@ class Solution {
         
  for (int room = 0; room < m; room++) {
             int r = floor, c = room;
-            if (!col[c] && !diag[r + c] && !adiag[r - c + m - 1]) {
-                col[c] = diag[r + c] = adiag[r - c + m - 1] = true;
+            if (!row[r] && !col[c] && !diag[r + c] && !adiag[r - c + m - 1]) {
+                row[r] = col[c] = diag[r + c] = adiag[r - c + m - 1] = true;
                 count += nQueen_01(n, m, floor + 1, tnq - 1, asf + "(" + r + "," + c + ") ");
-                col[c] = diag[r + c] = adiag[r - c + m - 1] = false;
+                row[r] = col[c] = diag[r + c] = adiag[r - c + m - 1] = false;
             }
         }
 
