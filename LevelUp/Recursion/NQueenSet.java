@@ -164,6 +164,32 @@ public class NQueenSet {
         return count;
     }
 
+    public int getNQueensPositionBits(int n, int m, int floor, int tnq) {
+        if (tnq == 0) {
+            return 1;
+        }
+
+        int count = 0;
+        
+ for (int room = 0; room < m; room++) {
+            int r = floor, c = room;
+            if ( (col & (1<< col)) == 0 && (diag & (1<< (row +col))) == 0  &&  (adiag & (1<< (row - col + m-1))) == 0 ) {
+                
+                col ^=  1<<col;
+                diag ^=  (1<< (row+col));
+                diag ^=  (1<< (row-col + m -1));
+                
+                count += getNQueensPosition(n, m, floor + 1, tnq - 1);
+                
+                col ^=  1<<col;
+                diag ^=  (1<< (row+col));
+                diag ^=  (1<< (row-col + m -1));
+            }
+        }
+
+        return count;
+    }
+
     public static void nqueen() {
         int n = 4, tnq = 4;
         // boolean[][] box = new boolean[n][n];
