@@ -26,7 +26,7 @@ public class WordBreak {
             if(dict.contains(potentialWord)){
                 String restofString = str.substring(ei+1);
                 count += wordBreak(restofString, ans + potentialWord +  " ", dict);
-            }
+            }=
         }
         return count;
 	}
