@@ -14,6 +14,7 @@ class Solution {
                 isStringPresent(right, ans + (right.length() != 0 ? left + " " : left), wordDict, res);
             }
         }
+        
     }
     
     public List<String> wordBreak(String s, List<String> wordDict) {
