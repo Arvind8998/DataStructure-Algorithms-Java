@@ -1,15 +1,5 @@
 import java.util.*;
-/* MyNotes :
-return 1st head of linkedlist i.e fast.next.next != null
-return 2nd head of linkedlist i.e fast!=null
 
-leetcode question has returned 2nd head
-
-for using utility function of middle node always return 1st middle of linkedList
-
-odd length linkedList c1 = c2
-Even length linkedList c1 > c2
-*/
 class Main {
     public static class ListNode {
         int val = 0;
@@ -19,7 +9,7 @@ class Main {
             this.val = val;
         }
     }
-    
+
     public static ListNode midNode(ListNode head) {
         if(head == null || head.next == null) return head;
         ListNode slow = head;
@@ -33,37 +23,45 @@ class Main {
     return slow;
 }
 
-public static ListNode reverse(ListNode head) {
-    if(head == null || head.next == null) return head;
-    ListNode prev=null,forw=null, curr = head;
-
+public static ListNode reverseLinkedList(ListNode head){
+    ListNode prev = null, curr = head;
+    
     while(curr != null){
-         forw = curr.next;
-
+        ListNode forw = curr.next;
+        
         curr.next = prev;
+        
         prev = curr;
         curr = forw;
     }
     return prev;
 }
 
-    public static boolean isPalindrome(ListNode head) {
-        if(head == null || head.next == null) return true;
-
-        ListNode middle = midNode(head);
-        ListNode nHead = middle.next;
-        middle.next = null;
+    public static void fold(ListNode head) {
+        ListNode c1 = head, c2 =null, f1 = null, f2 = null;
+        ListNode midNode = midNode(head);
+        ListNode nHead = midNode.next;
+        midNode.next = null;
+        nHead = reverseLinkedList(nHead);
         
-        nHead = reverse(nHead);
+        c2 = nHead;
+        while(c2 !=null){
+            f1 = c1.next;
+            f2 = c2.next;
 
-        while(nHead != null){
-             if(nHead.val != head.val) return false;
-            nHead = nHead.next;
-            head = head.next;
+            c1.next = c2;
+            c2.next = f1;
 
-           
+            c1 = f1;
+            c2 = f2;
         }
-        return true;
+    }
+
+    static void printList(ListNode node) {
+        while (node != null) {
+            System.out.print(node.val + " ");
+            node = node.next;
+        }
     }
 
     public static void main(String[] args) {
@@ -76,6 +74,8 @@ public static ListNode reverse(ListNode head) {
             prev = prev.next;
         }
 
-        System.out.println(isPalindrome(dummy.next));
+        ListNode head = dummy.next;
+        fold(head);
+        printList(head);
     }
 }
