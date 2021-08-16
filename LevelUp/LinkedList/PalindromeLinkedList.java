@@ -1,5 +1,12 @@
 import java.util.*;
+/* MyNotes :
+return 1st head of linkedlist i.e fast.next.next != null
+return 2nd head of linkedlist i.e fast!=null
 
+leetcode question has returned 2nd head
+
+for using utility function of middle node always return 1st middle of linkedList
+*/
 class Main {
     public static class ListNode {
         int val = 0;
