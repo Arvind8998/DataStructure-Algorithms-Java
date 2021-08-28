@@ -76,10 +76,16 @@ public ListNode cycleVariables(ListNode head) {
         if(mp == fast) cycleCount ++;
         A++;
     }
-    int cycleLength = getCycleLen(mp);
-    int m = cycleCount +1;
-    int C = A- cycleCount * cycleLen;
-    int B = cycleLen - C;
+    int m = 0, C =0, B =0;
+    if(A!= 0 &&  A % cycleLen == 0){
+        m =  cycleCount- 1;
+        B = cycleLen - C;
+    }
+    else{
+        m =  cycleCount- 1;
+        C = A - cycleCount * cycleLen;
+        B = cycleLen - C; 
+    }
 
     return slow;
 } 
