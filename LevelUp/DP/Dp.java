@@ -73,9 +73,10 @@ public class Dp{
     }
 
     public static void main(String[] args){
+        int sr = 0, sc =0, er =2, ec= 2;
         int[][] dir = { {0,1}, {1,0}, {1,1}};
         // fibo();
-        int[][] dp = new int[3][3];
-        System.out.print(mazePath(0, 0, 2, 2, dp, dir));
+        int[][] dp = new int[er+1][ec+1];
+        System.out.print(mazePath(sr, sc, er, ec, dp, dir));
     }
 }
