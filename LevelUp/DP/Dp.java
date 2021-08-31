@@ -45,13 +45,37 @@ public class Dp{
     public static void fibo(){
         int n = 5;
         int[] dp = new int[n+1];
-        fibo_memo(n, dp);
+        fibo_memo(n, dp);   
         fibo_tabu(n, dp);
         // System.out.print(fibo_opti(n));
         display(dp);
     }
 
+    public static int mazePath(int sr, int sc, int er, int ec, int[][]dp, int[][] dir){
+        if(sr == er && sc == ec){
+            return dp[sr][sc] = 1;
+        }
+        if(dp[sr][sc] != 0){
+            return dp[sr][sc];
+        }
+
+        int count = 0;
+
+        for(int d=0; d<dir.length; d++){
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+            
+            if(r >=0 && c >=0 && r <= er && c <= ec ){
+                count += mazePath(r, c, er, ec, dp, dir);
+            }
+        }
+        return dp[sr][sc] = count;
+    }
+
     public static void main(String[] args){
-        fibo();
+        int[][] dir = { {0,1}, {1,0}, {1,1}};
+        // fibo();
+        int[][] dp = new int[3][3];
+        System.out.print(mazePath(0, 0, 2, 2, dp, dir));
     }
 }
