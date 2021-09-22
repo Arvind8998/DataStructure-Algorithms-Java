@@ -9,6 +9,7 @@ public class QuickSort {
     }
 
     public static int partitionArray(int[] arr, int si, int ei, int pIdx){
+        swap(arr, pIdx, ei);
         int p = si-1, itr = si;
 
         swap(arr, pIdx, ei);
