@@ -167,6 +167,31 @@ public class Dp{
         return dp[sr][sc] = count;
     }
 
+    public static int board_dice_memo(int sp, int ep, int[] dp){
+        if(sp == ep){
+            return dp[sp] = 1;
+        }
+        int count = 0;
+        for(int d=1; d<= 6 && sp+d<= ep; d++){
+            count += board_dice_memo(sp+d, ep, dp);
+        }
+        return dp[sp] = count;
+    }
+
+    public static int board_dice_tablu(int SP, int ep, int[] dp){
+        for(int sp=ep; sp>=0; sp--){
+            if(sp == ep){
+               dp[sp] = 1;
+               continue;
+            }
+            int count = 0;
+            for(int d=1; d<= 6 && sp + d <=ep; d++){
+                count += dp[sp+d];
+            }
+            return dp[SP];
+        }
+    }
+
     public static void main(String[] args){
         int sr = 0, sc =0, er =3, ec= 3;
         int[][] dp = new int[er+1][ec+1];
