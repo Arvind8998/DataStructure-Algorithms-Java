@@ -4,6 +4,7 @@ public class Dp{
         for(int a : dp){
             System.out.print(a +" ");
         }
+        System.out.println();
     }
 
     public static void display2d(int[][] dp){
@@ -51,7 +52,7 @@ public class Dp{
         display(dp);
     }
 
-    public static int mazePath(int sr, int sc, int er, int ec, int[][]dp, int[][] dir){
+    public static int mazePath__memo(int sr, int sc, int er, int ec, int[][]dp, int[][] dir){
         if(sr == er && sc == ec){
             return dp[sr][sc] = 1;
         }
@@ -66,11 +67,83 @@ public class Dp{
             int c = sc + dir[d][1];
             
             if(r >=0 && c >=0 && r <= er && c <= ec ){
-                count += mazePath(r, c, er, ec, dp, dir);
+                count += mazePath__memo(r, c, er, ec, dp, dir);
             }
         }
         return dp[sr][sc] = count;
     }
+
+    public static int mazePath__tabul(int SR, int SC, int ER, int EC, int[][] dp, int[][] dir){
+        for(int sr=ER; sr>= SR; sr--){
+            for(int sc = EC; sc >= SC; sc--){
+                if(ER == sr && EC == sc ){
+                    dp[sr][sc] = 1;
+                    continue;
+                }
+        int count = 0;
+
+        for(int[]d : dir){
+            int r = sr + d[0];
+            int c = sc + d[1];
+            if(r >=0 && c >=0 && r < dp.length && c < dp[0].length ){
+                count += dp[r][c];
+            }
+        }
+            
+        dp[sr][sc] = count;
+    }
+    }
+        return dp[SR][SC];
+    }
+
+    public static int mazePathJump__tabul(int SR, int SC, int ER, int EC, int[][] dp, int[][] dir){
+        for(int sr=ER; sr>= SR; sr--){
+            for(int sc = EC; sc >= SC; sc--){
+                if(ER == sr && EC == sc ){
+                    dp[sr][sc] = 1;
+                    continue;
+                }
+        int count = 0;
+
+        for(int[]d : dir){
+            for(int rad=1; rad<=Math.max(ER,EC); rad++){
+                int r = sr + rad * d[0];
+                int c = sc + rad* d[1];
+                if(r >=0 && c >=0 && r < dp.length && c < dp[0].length ){
+                    count += dp[r][c];
+                }
+            }
+        }
+        dp[sr][sc] = count;
+    }
+    }
+        return dp[SR][SC];
+    }
+
+    public static int mazePathJump__tabul__2(int SR, int SC, int ER, int EC, int[][] dp, int[][] dir){
+        for(int sr=ER; sr>= SR; sr--){
+            for(int sc = EC; sc >= SC; sc--){
+                if(ER == sr && EC == sc ){
+                    dp[sr][sc] = 1;
+                    continue;
+                }
+        int count = 0;
+
+        for(int[]d : dir){
+                int r = sr + d[0];
+                int c = sc + d[1];
+                while(r >=0 && c >=0 && r < dp.length && c < dp[0].length ){
+                    count += dp[r][c];
+                    r += d[0];
+                    c += d[1];
+                }
+        }
+        dp[sr][sc] = count;
+    }
+    }
+        return dp[SR][SC];
+    }
+
 
     public static int mazePathJump(int sr, int sc, int er, int ec, int[][]dp, int[][] dir, int R){
         if(sr == er && sc == ec){
@@ -95,13 +168,15 @@ public class Dp{
     }
 
     public static void main(String[] args){
-        int sr = 0, sc =0, er =2, ec= 2;
-        int[][] dir = { {0,1}, {1,0}, {1,1}};
+        int sr = 0, sc =0, er =3, ec= 3;
+        int[][] dp = new int[er+1][ec+1];
+        int[][] dir = { {1,0}, {0,1}, {1,1}};
+
         int radius = Math.max(er,ec);
 
         // fibo();
-        int[][] dp = new int[er+1][ec+1];
-        System.out.print(mazePathJump(sr, sc, er-1, ec-1, dp, dir, radius));
+        // System.out.print(mazePathJump(sr, sc, er-1, ec-1, dp, dir, radius));
+        System.out.println(mazePath__tabul(sr, sc, er, ec, dp, dir));           
         display2d(dp);
     }
 }
