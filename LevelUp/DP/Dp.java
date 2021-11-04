@@ -210,14 +210,15 @@ public class Dp{
                  count += numDecoding(str, idx+2, dp);
             }
             return dp[idx] = count;
-    
+        }
+        
         public int numDecodings(String str){
             int n = str.length();
             int[] dp = new int[n+1];
             Arrays.fill(dp , -1);
             return numDecoding(str,0, dp);
         }
-    }
+    
 
     public static void main(String[] args){
         int sr = 0, sc =0, er =3, ec= 3;
