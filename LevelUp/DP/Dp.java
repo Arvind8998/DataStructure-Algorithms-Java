@@ -211,13 +211,37 @@ public class Dp{
             }
             return dp[idx] = count;
         }
-        
+
+        public int numDecoding_tabu(String str, int IDX, int[]dp){
+            dp[str.length()] =1;
+              for(int idx= str.length()-1; idx>=0; idx--){
+                  char ch = str.charAt(idx);
+                  if(ch == '0'){
+                      dp[idx] = 0;
+                      continue;
+                  } 
+                  int count = dp[idx+1];
+          
+                  if(idx < str.length()-1){
+                      char ch2 = str.charAt(idx+1);
+                      int num = (ch -'0')*10 + (ch2 - '0');
+          
+                      if(num <=26)
+                       count += dp[idx+2];
+                  }
+                  dp[idx] = count;
+              }
+              return dp[IDX];
+          }
+
         public int numDecodings(String str){
             int n = str.length();
             int[] dp = new int[n+1];
             Arrays.fill(dp , -1);
             return numDecoding(str,0, dp);
         }
+
+
     
 
     public static void main(String[] args){
