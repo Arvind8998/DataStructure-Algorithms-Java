@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.Scanner;
     
 public class GoldMine {
+    
 
     public static int goldMine(int sr, int sc, int[][] dir, int[][] arr, int[][] dp){
         int n = arr.length, m = arr[0].length;
