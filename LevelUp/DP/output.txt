@@ -1,3 +1,4 @@
-Starting row is2
-( 2, 0) ( 3, 1) ( 2, 2) ( 2, 3) 
-Max gOLD IS 16
+1 
+2 
+3 
+0
