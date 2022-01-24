@@ -1,3 +1,14 @@
+Some test cases are failing on leetcode portal on using si<ei condition in binary search however some fails on using si< ei condition on leet code portal 
+
+https://leetcode.com/problems/find-k-closest-elements/
+
+
+Same code is working on pepcoding portal.
+https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/searching-and-sorting/find_k_closest_elements/ojquestion
+
+can someone please help with the issue here!!
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
