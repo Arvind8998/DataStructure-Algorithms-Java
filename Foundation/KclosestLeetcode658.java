@@ -26,6 +26,12 @@ class Solution {
 
     }
 
+    /*default priority queue is min heap, top element is minimum, 
+    implemented queue is max heap , i.e. max element is at top
+
+    in current implementation if a is bigger than b then -ve sign returned and biiger elemnt is placed at top because by default smaller elements are placed at top of priority queue
+*/
+
     PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> {
         return b.gap - a.gap;
     });
