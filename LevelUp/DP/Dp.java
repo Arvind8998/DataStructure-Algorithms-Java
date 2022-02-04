@@ -45,10 +45,10 @@ public class Dp{
     }
 
     public static void fibo(){
-        int n = 5;
+        int n = 2;
         int[] dp = new int[n+1];
         fibo_memo(n, dp);   
-        fibo_tabu(n, dp);
+        // fibo_tabu(n, dp);
         // System.out.print(fibo_opti(n));
         display(dp);
     }
@@ -274,9 +274,9 @@ public class Dp{
 
         int radius = Math.max(er,ec);
 
-        // fibo();
+        fibo();
         // System.out.print(mazePathJump(sr, sc, er-1, ec-1, dp, dir, radius));
-        System.out.println(mazePath__tabul(sr, sc, er, ec, dp, dir));           
-        display2d(dp);
+        // System.out.println(mazePath__tabul(sr, sc, er, ec, dp, dir));           
+        // display2d(dp);
     }
 }
