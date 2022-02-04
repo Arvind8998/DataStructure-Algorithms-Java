@@ -1,0 +1,135 @@
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
+i is ->0
+i is ->0nbr is1wt is1
+i is ->0nbr is1wt is1
+i is ->0nbr is2wt is1
+i is ->0nbr is2wt is1
+i is ->1
+i is ->1nbr is0wt is1
+i is ->1nbr is0wt is1
+i is ->1nbr is2wt is1
+i is ->1nbr is2wt is1
+i is ->2
+i is ->2nbr is1wt is1
+i is ->2nbr is1wt is1
+i is ->2nbr is0wt is1
+i is ->2nbr is0wt is1
