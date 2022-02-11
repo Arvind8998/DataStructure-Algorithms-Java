@@ -1,5 +1,8 @@
 public class JavaCharInt {
     public static void main(String[] args) {
-        System.out.println('12' - 0);
+        long data = 90;
+        // System.out.println('z' - 0);
+        System.out.println(data);
+
     }
 }

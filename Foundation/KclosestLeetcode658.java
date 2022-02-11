@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
+
 class Solution {
     public class Pair implements Comparable<Pair> {
         int value;
