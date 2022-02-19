@@ -1,45 +1,30 @@
-import java.util.*;
+class Solution {
+    public void wiggleSort(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+            
+        int[] res = new int[n];
 
-public class Main {
+        int i = 1;
+        int j = n - 1;
 
-    public static void swap(int si, int ei, int[] arr) {
-        int temp = arr[si];
-        arr[si] = arr[ei];
-        arr[ei] = temp;
-    }
-
-    // ~~~~~~~~~~~~~~User Section~~~~~~~~~~~~~~
-    public static void wiggleSort(int[] arr) {
-        for (int i = 0; i < arr.length - 1; i++) {
-            if (i % 2 == 0) {
-                if (arr[i + 1] <= arr[i]) {
-                    swap(i, i + 1, arr);
-                }
-            } else {
-                if (arr[i + 1] >= arr[i]) {
-                    swap(i + 1, i, arr);
-                }
-            }
-        }
-    }
-
-    // ~~~~~~~~~~~~Input Management~~~~~~~~~~~~~
-    public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
-
-        int n = scn.nextInt();
-        int[] arr = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = scn.nextInt();
+        while (i < n) {
+            res[i] = nums[j];
+            i += 2;
+            j--;
         }
 
-        wiggleSort(arr);
-
-        for (int val : arr) {
-            System.out.print(val + " ");
+        i = 0;
+        
+        while (i < n) {
+            res[i] = nums[j];
+            i += 2;
+            j--;
         }
-        System.out.println();
-    }
 
+        for (int k = 0; k < n; k++) {
+            nums[k] = res[k];
+        }
+
+    }
 }
