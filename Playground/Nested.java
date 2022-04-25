@@ -3,6 +3,10 @@ public class Nested {
         SuperPro() {
             System.out.println("-----> George ----");
         }
+
+        public void hello() {
+            System.out.print("Adsadsad");
+        }
     }
 
     public static class inner extends SuperPro {
@@ -11,8 +15,8 @@ public class Nested {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         inner in = new inner();
-        
+        SuperPro.super.hello();
     }
 }
