@@ -75,7 +75,7 @@ public class Main {
                     System.out.println(maxst.peekMax());
                     break;
                 case "push":
-                    maxst.push(Integer.parseInt(inp[1]));
+                    maxst.hashpush(Integer.parseInt(inp[1]));
                     break;
             }
 
