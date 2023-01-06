@@ -9,7 +9,7 @@ public class Main {
 
         while (k >= 0) {
             int a1Val = i >= 0 ? arr1[i] : 0;
-            
+
             if (arr2[j] + borrow >= a1Val) {
                 ans[k] = arr2[j] + borrow - a1Val;
                 borrow = 0;
