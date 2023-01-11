@@ -15,7 +15,6 @@ public class floodFillJump {
                 count += mazePath(r, c, er, ec, ans + dirS[d], dir, dirS);
             }
         }
-
         return count;
     }
 
@@ -36,8 +35,8 @@ public class floodFillJump {
         int count = 0;
 
         for (int d = 0; d < dir.length; d++) {
-            int r = sr +  dir[d][0];
-            int c = sc +  dir[d][1];
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
 
             if (r >= 0 && c >= 0 && r < board.length && c < board[0].length) {
                 if (board[r][c] == 0)
@@ -51,7 +50,8 @@ public class floodFillJump {
     }
 
     // 0 -> empty cell, 1 -> blocked cell
-    public static int floodFill_Jump(int sr, int sc, int[][] board, String ans, int[][] dir, String[] dirS, int Radius) {
+    public static int floodFill_Jump(int sr, int sc, int[][] board, String ans, int[][] dir, String[] dirS,
+            int Radius) {
         int n = board.length, m = board[0].length;
         if (sr == n - 1 && sc == m - 1) {
             System.out.println(ans);
