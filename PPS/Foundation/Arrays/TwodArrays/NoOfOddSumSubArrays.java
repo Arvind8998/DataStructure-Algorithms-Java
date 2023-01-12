@@ -17,7 +17,7 @@ public class NoOfOddSumSubArrays {
             }
 
         }
-        return (int) (ans % (1e9+7));
+        return (int) (ans % (1e9 + 7));
     }
 
 }
