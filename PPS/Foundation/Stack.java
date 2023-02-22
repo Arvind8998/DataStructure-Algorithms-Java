@@ -33,12 +33,12 @@ public class Stack {
     }
 
     public void push(int data) throws Exception {
-        overFlowException();
+        // overFlowException();
         if (this.MaxCapacity == this.noOfElements) {
             int[] temp = new int[size];
-            int idx = size - 1;
-            while (idx != 0) {
-                temp[idx--] = arr[idx];
+            int idx = this.size - 1;
+            while (idx >= 0) {
+                temp[idx--] = pop();
             }
             initialize(this.size * 2);
 
@@ -55,7 +55,7 @@ public class Stack {
         overFlowException();
         int removedEl = this.arr[this.tos--];
         this.noOfElements--;
-        return removedEl--;
+        return removedEl;
     }
 
     public int peek() throws Exception {
