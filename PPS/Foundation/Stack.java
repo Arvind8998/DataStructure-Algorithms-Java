@@ -34,21 +34,20 @@ public class Stack {
 
     public void push(int data) throws Exception {
         // overFlowException();
-        if (this.MaxCapacity == this.noOfElements) {
-            int[] temp = new int[size];
-            int idx = this.size - 1;
-            while (idx >= 0) {
-                temp[idx--] = pop();
-            }
-            initialize(this.size * 2);
+        if (this.tos == this.arr.length - 1) {
+            int[] temp = new int[2 * this.arr.length];
 
-            for (int ele : temp) {
-                this.arr[idx++] = ele;
+            int idx = 0;
+
+            while (idx < this.arr.length) {
+                temp[idx] = this.arr[idx];
+                idx++;
             }
+            this.arr = temp;
         }
-
         this.arr[++this.tos] = data;
         this.noOfElements++;
+
     }
 
     public int pop() throws Exception {
@@ -70,6 +69,9 @@ public class Stack {
         st.push(15);
         st.push(52);
         st.push(55);
+        st.push(51);
+        st.push(80);
+        System.out.print(st.peek());
     }
 
 }
