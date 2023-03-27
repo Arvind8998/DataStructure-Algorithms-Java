@@ -94,9 +94,7 @@ public class MinHeap {
     }
 
     public int remove() throws Exception { // logn
-        if (this.arr.length == 0) {
-            throw new Exception("NullPointerException");
-        }
+
         int removedEl = this.arr[0];
 
         swap(0, currentIdx - 1);
@@ -104,6 +102,15 @@ public class MinHeap {
         this.currentIdx -= 2;
         downHeapify(0);
         return removedEl;
+    }
+
+    public void printHeap() {
+        for (int i = this.currentIdx - 1; i >= 0; i--) {
+            if (this.arr[i] == 0) {
+                break;
+            }
+            System.out.println(this.arr[i]);
+        }
     }
 
 }

@@ -9,9 +9,9 @@ public class MaxHeap {
         assign();
     }
 
-    public MaxHeap(int[] arr, boolean isMax) {
+    public MaxHeap(int[] arr) {
         assign();
-        this.isMax = isMax;
+        // this.isMax = isMax;
         heapConstruct(arr);
     }
 

@@ -77,20 +77,32 @@ class Heap {
         heapArr[i] = temp;
     }
 
+    public boolean isEmpty() {
+        return this.currentHeapSize == 0;
+    }
+
+    public void printHeap() {
+        for (int i = 0; i <= this.currentHeapSize; i++) {
+            if (heapArr[i] == 0) {
+                break;
+            }
+            System.out.println(heapArr[i]);
+        }
+    }
+
 }
 
 public class MinHeap {
     public static void main(String args[]) {
+        int[] arr = { 30, -1, 60, 2 };
         Heap minHeap = new Heap(7);
+        minHeap.insertKey(30);
+        minHeap.insertKey(-1);
+        minHeap.insertKey(60);
         minHeap.insertKey(2);
-        minHeap.insertKey(4);
-        minHeap.insertKey(5);
-        minHeap.insertKey(6);
-        minHeap.insertKey(7);
-        minHeap.insertKey(1);
-        minHeap.insertKey(8);
-        minHeap.insertKey(3);
-        // minHeap.removeKey();
+
+        minHeap.printHeap();
+
         // System.out.println(minHeap.getMin());
     }
 }
