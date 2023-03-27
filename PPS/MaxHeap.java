@@ -3,12 +3,15 @@ import java.util.ArrayList;
 public class MaxHeap {
     private ArrayList<Integer> arr;
 
+    private boolean isMax = true;
+
     public MaxHeap() {
         assign();
     }
 
-    public MaxHeap(int[] arr) {
+    public MaxHeap(int[] arr, boolean isMax) {
         assign();
+        this.isMax = isMax;
         heapConstruct(arr);
     }
 
@@ -39,6 +42,14 @@ public class MaxHeap {
 
         this.arr.set(a, val2);
         this.arr.set(b, val1);
+    }
+
+    public boolean compareTo(int a, int b) {
+        if (this.isMax) {
+            return this.arr.get(a) > this.arr.get(b);
+        } else {
+            return this.arr.get(b) > this.arr.get(a);
+        }
     }
 
     private void upHeapify(int ci) { // logn

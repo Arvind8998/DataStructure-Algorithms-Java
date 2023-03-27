@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 public class MinHeap {
-    private ArrayList<Integer> arr;
+    // private ArrayList<Integer> arr;
+    private int[] arr;
+    private int currentIdx = 0;
 
     public MinHeap() {
         assign();
@@ -13,38 +15,40 @@ public class MinHeap {
     }
 
     protected void assign() {
-        this.arr = new ArrayList<>();
+        this.arr = new int[10];
     }
 
     public int size() {
-        return this.arr.size();
+        return this.arr.length;
     }
 
     public boolean isEmpty() {
-        return this.arr.size() == 0;
+        return this.arr.length == 0;
     }
 
     private void heapConstruct(int[] data) {
-        for (int ele : data)
-            this.arr.add(ele);
+        for (int idx = 0; idx < data.length; idx++) {
+            this.arr[idx] = data[idx];
+            this.currentIdx++;
+        }
 
-        for (int i = this.arr.size() - 1; i >= 0; i--) {
+        for (int i = currentIdx - 1; i >= 0; i--) {
             downHeapify(i);
         }
     }
 
     public void swap(int a, int b) { // o(1)
-        int val1 = this.arr.get(a);
-        int val2 = this.arr.get(b);
+        int val1 = this.arr[a];
+        int val2 = this.arr[b];
 
-        this.arr.set(a, val2);
-        this.arr.set(b, val1);
+        this.arr[a] = val2;
+        this.arr[b] = val1;
     }
 
     private void upHeapify(int ci) { // logn
         int pi = (ci - 1) / 2;
 
-        if (pi >= 0 && this.arr.get(ci) < this.arr.get(pi)) {
+        if (pi >= 0 && this.arr[ci] < this.arr[pi]) {
             swap(pi, ci);
             upHeapify(pi);
         }
@@ -56,10 +60,10 @@ public class MinHeap {
 
         int maxIdx = pi;
 
-        if (lci < this.arr.size() && this.arr.get(lci) < this.arr.get(maxIdx))
+        if (lci < currentIdx && this.arr[lci] < this.arr[maxIdx])
             maxIdx = lci;
 
-        if (rci < this.arr.size() && this.arr.get(rci) < this.arr.get(maxIdx))
+        if (rci < currentIdx && this.arr[rci] < this.arr[maxIdx])
             maxIdx = rci;
 
         if (maxIdx != pi) {
@@ -69,25 +73,35 @@ public class MinHeap {
     }
 
     public int top() throws Exception { // o(1)
-        if (this.arr.size() == 0)
+        if (this.arr.length == 0)
             throw new Exception("NullPointerException");
-        return this.arr.get(0);
+        return this.arr[0];
     }
 
     public void add(int data) { // logn
-        this.arr.add(data);
-        upHeapify(this.arr.size() - 1);
+        if (currentIdx == this.arr.length - 1) {
+            int[] temp = new int[this.arr.length * 2];
+            for (int idx = 0; idx < arr.length; idx++) {
+                temp[idx] = this.arr[idx];
+            }
+            this.arr = temp;
+        }
+
+        this.arr[currentIdx] = data;
+        upHeapify(currentIdx);
+        this.currentIdx++;
+
     }
 
     public int remove() throws Exception { // logn
-        if (this.arr.size() == 0) {
+        if (this.arr.length == 0) {
             throw new Exception("NullPointerException");
         }
-        int n = this.arr.size();
-        int removedEl = this.arr.get(0);
+        int removedEl = this.arr[0];
 
-        swap(0, n - 1);
-        this.arr.remove(n - 1);
+        swap(0, currentIdx - 1);
+        this.arr[currentIdx - 1] = 0;
+        this.currentIdx -= 2;
         downHeapify(0);
         return removedEl;
     }
