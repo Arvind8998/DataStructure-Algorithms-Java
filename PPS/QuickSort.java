@@ -1,24 +1,42 @@
 
 public class QuickSort {
 
-    public void swap(int[] arr, int si, int ei) {
+    public static void swap(int[] arr, int si, int ei) {
         int temp = arr[si];
         arr[si] = arr[ei];
         arr[ei] = temp;
     }
 
-    // public int partition(int[] arr, int left, int right) {
+    public static int partitionIdx(int[] arr, int si, int ei, int pivot) {
+        swap(arr, pivot, ei);
 
-    // }
+        int left = si - 1, right = si;
+        while (right <= ei) {
+            if (arr[right] <= arr[ei]) {
+                swap(arr, ++left, right);
+            }
+            right++;
+        }
+        return left;
+    }
 
-    public void quickSort(int[] arr, int left, int right){
-        int pivot = right;
-        quickSort(arr, left, pivot);
-        // quickSort(pivot, , right);
+    public static void quickSort(int[] arr, int si, int ei) {
+        if (si > ei)
+            return;
 
+        int pivot = ei;
+        int p = partitionIdx(arr, si, ei, pivot);
+
+        quickSort(arr, si, p - 1);
+        quickSort(arr, p + 1, ei);
     }
 
     public static void main(String[] args) {
-        System.out.println("hello");
+        int[] arr = { 5, 3, 2, 1 };
+        quickSort(arr, 0, arr.length - 1);
+
+        for(int val: arr){
+            System.out.println(val);
+        }
     }
 }
