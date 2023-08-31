@@ -1,6 +1,0 @@
-Company: 
-Model: 
-Ram: 0GB
-Storage: 0GB
-BatteryBackup: 0mAH
-
